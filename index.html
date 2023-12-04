@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Library MVP</title>
+  </head>
+  <body>
+    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/random);">
+      <div class="container">
+        <h1>Le Wagon brings <strong>tech skills</strong> to <strong>creative people</strong>!</h1>
+      </div>
+    </div>
+    <div class="main-container my-4">
+      <div class="w-50" style="margin: 0 auto;">
+        <h3>Cadastre um autor:</h3>
+        <form id="author-form">
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" id="author-name" placeholder="Coloque o nome">
+          </div>
+          <button type="submit" class="btn btn-primary w-100 my-1">Enviar</button>
+        </form>
+      </div>
+      <div class="container text-center my-3">
+        <div class="row text-center g-2" id="authors-grid">
+        </div>
+      </div>
+    </div>
+
+    
+  </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</html>
