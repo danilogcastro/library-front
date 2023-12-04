@@ -1,10 +1,14 @@
 $(document).ready(function () {
+  $('#author-form').hide();
+  $('#book-form').hide();
   getAuthors();
-  submitForm();
+  submitAuthorForm();
+  submitBookForm();
+  toggleAuthorForm();
+  toggleBookForm();
 });
 
 // GET ALL AUTHORS
-
 function getAuthors() {
   $.get('http://localhost:3000/authors', function (data) {
     let grid = $('#authors-grid');
@@ -15,8 +19,9 @@ function getAuthors() {
   });
 }
 
-function submitForm() {
+function submitAuthorForm() {
   $('#author-form').on('submit', function (event) {
+    event.preventDefault();
     let formData = new FormData(this);
     let formDataObject = {};
     formData.forEach(function (value, key) {
@@ -26,24 +31,85 @@ function submitForm() {
   });
 }
 
-// CREATE AUTHOR
+function submitBookForm() {
+  $('#book-form').on('submit', function (event) {
+    event.preventDefault();
+    let formData = new FormData(this);
+    let formDataObject = {};
+    formData.forEach(function (value, key) {
+      formDataObject[key] = value;
+    });
+    createBook(formDataObject);
+  });
+}
 
-function createAuthor(author_data) {
+// CREATE AUTHOR
+function createAuthor(authorData) {
   $.post({
     url: 'http://localhost:3000/authors',
     contentType: 'application/json',
-    data: JSON.stringify(author_data),
+    data: JSON.stringify(authorData),
+    success: function (data) {
+      let grid = $('#authors-grid');
+      let card = buildAuthorCard(data);
+      grid.append(card);
+    },
+  });
+}
+
+function createBook(bookData) {
+  const authorID = bookData.author_id;
+  delete bookData.author_id;
+  $.post({
+    url: `http://localhost:3000/authors/${authorID}/books`,
+    contentType: 'application/json',
+    data: JSON.stringify(bookData),
+    success: function () {
+      alert('Livro criado com sucesso!');
+      window.location.reload();
+    },
   });
 }
 
 // GET AUTHOR'S BOOKS
-
-function getAuthorBooks(author_id) {
-  $.get(`http://localhost:3000/authors/${author_id}/books`, function (data) {
-    let grid = $('#books-grid');
+function getAuthorBooks(authorId) {
+  $.get(`http://localhost:3000/authors/${authorId}/books`, function (data) {
+    let grid = $(`#books-grid-${authorId}`);
     data.forEach((book) => {
       let card = buildBookCard(book);
       grid.append(card);
+    });
+  });
+}
+
+function buildSelect() {
+  return new Promise((resolve, reject) => {
+    let select = $('<select class="form-select" name="author_id"></select>');
+    $.get('http://localhost:3000/authors', function (data) {
+      data.forEach((author) => {
+        let option = `<option value="${author.id}">${author.name}</option>`;
+        select.append(option);
+      });
+      resolve(select);
+    });
+  });
+}
+
+function toggleAuthorForm() {
+  $('#author-btn').on('click', function (event) {
+    $('#author-form').toggle();
+  });
+}
+
+function toggleBookForm() {
+  let isAdded = false;
+  $('#book-btn').on('click', function (event) {
+    $('#book-form').toggle();
+    buildSelect().then((select) => {
+      if (!isAdded) {
+        isAdded = true;
+        $('#book-form').prepend(select);
+      }
     });
   });
 }
@@ -77,7 +143,7 @@ function buildAuthorCard(author) {
                     </button>
                   </div>
                   <div class="modal-body container-fluid text-center">
-                    <div class="row text-center" id="books-grid">
+                    <div class="row text-center" id="books-grid-${author.id}">
                     </div>
                   </div>
                   <div class="modal-footer">

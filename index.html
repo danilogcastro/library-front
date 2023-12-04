@@ -8,17 +8,29 @@
   <body>
     <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://source.unsplash.com/random);">
       <div class="container">
-        <h1>Le Wagon brings <strong>tech skills</strong> to <strong>creative people</strong>!</h1>
+        <h1>Library MVP</h1>
       </div>
     </div>
     <div class="main-container my-4">
       <div class="w-50" style="margin: 0 auto;">
-        <h3>Cadastre um autor:</h3>
+        <div class="buttons d-flex justify-content-between my-3">
+          <button class="btn btn-success w-50 mx-1" id="author-btn">Cadastrar Autor</button>
+          <button class="btn btn-success w-50 mx-1" id="book-btn">Cadastrar Livro</button>
+        </div>
         <form id="author-form">
           <div class="form-group">
             <input type="text" name="name" class="form-control" id="author-name" placeholder="Coloque o nome">
           </div>
-          <button type="submit" class="btn btn-primary w-100 my-1">Enviar</button>
+          <button type="submit" class="btn btn-primary w-100 my-2">Enviar</button>
+        </form>
+        <form id="book-form">
+          <div class="form-group">
+            <input type="text" name="title" class="form-control" id="book-title" placeholder="Coloque o titulo">
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" name="synopsis" placeholder="Coloque a sinopse" id="book-synopsis"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 my-2">Enviar</button>
         </form>
       </div>
       <div class="container text-center my-3">

@@ -40,6 +40,11 @@
 }
 
 #author-link:hover {
-  color: blue;
+  color: rgb(86, 6, 6);
   cursor: pointer;
+}
+
+.form-group {
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
