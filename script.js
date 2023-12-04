@@ -127,7 +127,7 @@ function buildAuthorCard(author) {
   getAuthorBooks(author.id);
   return `
           <div class="col-4">
-            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(images/card.jpg)">
               <a id="author-link" data-bs-toggle="modal" data-bs-target="#booksModal${author.id}">
                 ${author.name}
               </a>
