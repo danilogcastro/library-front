@@ -83,16 +83,15 @@ function getAuthorBooks(authorId) {
 }
 
 function buildSelect() {
-  return new Promise((resolve, reject) => {
-    let select = $('<select class="form-select" name="author_id"></select>');
-    $.get('http://localhost:3000/authors', function (data) {
-      data.forEach((author) => {
-        let option = `<option value="${author.id}">${author.name}</option>`;
-        select.append(option);
-      });
-      resolve(select);
+  let select = $('<select class="form-select" name="author_id"></select>');
+  $.get('http://localhost:3000/authors', function (data) {
+    data.forEach((author) => {
+      let option = `<option value="${author.id}">${author.name}</option>`;
+      select.append(option);
     });
   });
+
+  return select;
 }
 
 function toggleAuthorForm() {
@@ -105,7 +104,7 @@ function toggleBookForm() {
   let isAdded = false;
   $('#book-btn').on('click', function (event) {
     $('#book-form').toggle();
-    buildSelect().then((select) => {
+    $.when(buildSelect()).done(function (select) {
       if (!isAdded) {
         isAdded = true;
         $('#book-form').prepend(select);
